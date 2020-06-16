@@ -16,11 +16,11 @@ typedef void (*mrb_dl_func)(mrb_state*);
 typedef struct {
   mrb_state *mrb;
   mrb_value callback;
-  const char *filename;
-  const char *symbol;
+  char *filename;
+  char *symbol;
 } dl_wget_context;
 
-static void onload(void* _context,const char* file)
+static void onload(unsigned int req_handle, void* _context,const char* file)
 {
   dl_wget_context* context = (dl_wget_context*)_context;
   void* handle = dlopen( context->filename, RTLD_NOW);
@@ -38,7 +38,7 @@ static void onload(void* _context,const char* file)
   }
 }
 
-static void onerror(void *_context, int http_status_code)
+static void onerror(unsigned int req_handle, void *_context, int http_status_code)
 {
   dl_wget_context *context = (dl_wget_context*)_context;
   mrb_yield(context->mrb,context->callback,mrb_false_value());
