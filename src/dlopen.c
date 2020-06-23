@@ -4,7 +4,7 @@
 #include <mruby/string.h>
 #include <mruby/variable.h>
 
-#include <dlfcn.h>
+#include <bi/bi_sdl.h>
 
 typedef void (*mrb_dl_func)(mrb_state*);
 
@@ -69,9 +69,9 @@ static mrb_value mrb_dlopen(mrb_state *mrb, mrb_value self)
     mrb_value filename,symbol,callback;
     mrb_get_args(mrb, "SS&", &filename, &symbol, &callback );
 
-    void *handle = dlopen( RSTRING_PTR(filename), RTLD_NOW );
+    void *handle = SDL_LoadObject(RSTRING_PTR(filename));
     if(handle){
-      mrb_dl_func func = (mrb_dl_func)dlsym(handle, RSTRING_PTR(symbol) );
+      mrb_dl_func func = (mrb_dl_func)SDL_LoadFunction(handle, RSTRING_PTR(symbol) );
       if(func){
         func(mrb);
         mrb_yield(mrb,callback,mrb_true_value());
