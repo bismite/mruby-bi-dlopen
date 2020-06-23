@@ -1,4 +1,4 @@
-# mruby-dlopen
+# mruby-bi-dlopen
 
 # License
 
