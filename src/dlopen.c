@@ -12,6 +12,7 @@ typedef void (*mrb_dl_func)(mrb_state*);
 #include <emscripten.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dlfcn.h>
 
 typedef struct {
   mrb_state *mrb;
