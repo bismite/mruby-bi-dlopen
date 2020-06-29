@@ -87,7 +87,7 @@ static mrb_value mrb_dlopen(mrb_state *mrb, mrb_value self)
 
 #endif
 
-void mrb_mruby_dlopen_gem_init(mrb_state* mrb)
+void mrb_mruby_bi_dlopen_gem_init(mrb_state* mrb)
 {
   struct RClass *kernel;
   kernel = mrb->kernel_module;
@@ -95,6 +95,6 @@ void mrb_mruby_dlopen_gem_init(mrb_state* mrb)
   mrb_define_method(mrb, kernel, "dlopen", mrb_dlopen, MRB_ARGS_REQ(3)); // filename, symbol, callback
 }
 
-void mrb_mruby_dlopen_gem_final(mrb_state* mrb)
+void mrb_mruby_bi_dlopen_gem_final(mrb_state* mrb)
 {
 }
